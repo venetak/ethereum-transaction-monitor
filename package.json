@@ -1,0 +1,24 @@
+{
+  "name": "ethereum-transaction-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/venetak/ethereum-transaction-monitor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/venetak/ethereum-transaction-monitor/issues"
+  },
+  "homepage": "https://github.com/venetak/ethereum-transaction-monitor#readme",
+  "dependencies": {
+    "eslint": "^8.47.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^5.6.4"
+  }
+}
