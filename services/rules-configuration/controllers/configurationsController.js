@@ -1,6 +1,7 @@
 const ConfigurationModel = require('../models/configurationModel');
 const to = require('../../../utilities/awaitTo');
 const statusCodes = require('../../../utilities/statusCodes');
+const { missing_model } = require('../../../utilities/errorCodes');
 const mongoose = require('mongoose');
 
 class ConfigurationsController {
@@ -10,10 +11,12 @@ class ConfigurationsController {
             .catch(res.error);
     }
 
-    getOne (req, res) {
-        ConfigurationModel.findById(req.params.id)
-            .then(res.ok)
-            .catch(res.error);
+    async getOne (req, res) {
+        const [error, model] = await to(ConfigurationModel.findById(req.params.id));
+        if (error) return res.error(error);
+        if (!model) return res.error(missing_model, statusCodes.NotFound);
+
+        return res.ok(model);
     }
 
     create (req, res) {
@@ -24,13 +27,9 @@ class ConfigurationsController {
     }
 
     async update (req, res) {
-        // TODO: validate id
-        const id = req.params.id;
-        if (!mongoose.Types.ObjectId.isValid(id)) return res.error('Invalid id!');
-
         const [error, model] = await to(ConfigurationModel.findById(req.params.id));
         if (error) return res.error(error);
-        if (!model) return res.error('No such model!', statusCodes.NotFound);
+        if (!model) return res.error(missing_model, statusCodes.NotFound);
 
         model.rules = req.body.rules;
 
@@ -42,12 +41,10 @@ class ConfigurationsController {
 
     async delete (req, res) {
         const id = req.params.id;
-        // TODO: move to middleware
-        if (!mongoose.Types.ObjectId.isValid(id)) return res.error('Invalid id!');
 
         const [error, model] = await to(ConfigurationModel.findById(id));
         if (error) return res.error(error);
-        if (!model) return res.error('No such model!', statusCodes.NotFound);
+        if (!model) return res.error(missing_model, statusCodes.NotFound);
 
         const [errorDeletingModel] = await to(ConfigurationModel.findByIdAndDelete(id));
         if (errorDeletingModel) return res.error(errorDeletingModel);
