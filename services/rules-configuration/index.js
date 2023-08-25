@@ -24,5 +24,5 @@ require('./config/routes')(app);
 require('./db');
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Rules Configurations app listening at http://localhost:${port}`);
 });
