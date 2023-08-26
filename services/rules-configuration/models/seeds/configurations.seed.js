@@ -3,6 +3,10 @@ require('../../db');
 
 const ConfigurationModel = require('../configurationModel');
 
+/**
+ * Default setup for a configuration object.
+ * Helpful for development/testing purposes.
+ */
 const config = new ConfigurationModel({
     rules: [
         {

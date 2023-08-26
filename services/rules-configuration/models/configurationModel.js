@@ -6,7 +6,6 @@ const ConfigurationSchema = new mongoose.Schema({
         type: { type: String, enum: types },
         propName: String,
         values: [{ type: mongoose.Schema.Types.Mixed }],
-        // value: [{ type: String }], TODO: decide which one to use
     }],
 }, { timestamps: true });
 
