@@ -1,4 +1,4 @@
-const transactionsMonitorServicePort = 9444;
+const transactionsMonitorServicePort = 9000;
 const transactionsMonitorService = `http://localhost:${transactionsMonitorServicePort}`;
 
 module.exports = {

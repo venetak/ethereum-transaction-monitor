@@ -1,8 +1,9 @@
 const ConfigurationModel = require('../models/configurationModel');
+const TransactionsModel = require('../models/transactionModel');
 const to = require('../../../utilities/awaitTo');
 const statusCodes = require('../../../utilities/statusCodes');
 const { missing_model } = require('../../../utilities/errorCodes');
-const mongoose = require('mongoose');
+const secret = require('../config/secret');
 
 class ConfigurationsController {
     getAll (req, res) {
@@ -35,6 +36,11 @@ class ConfigurationsController {
 
         const [errorSavingModel] = await to(model.save());
         if (errorSavingModel) return res.error(errorSavingModel);
+
+        const [errorNotifyingTransactionsService] =
+            await to(TransactionsModel.notifyUpdateConfiguration(JSON.stringify(model), secret));
+
+        if (errorNotifyingTransactionsService) return res.error(errorNotifyingTransactionsService);
 
         res.ok(model);
     }

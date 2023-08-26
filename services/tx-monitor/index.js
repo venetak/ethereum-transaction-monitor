@@ -1,23 +1,29 @@
-require('./db');
 const TransactionsMonitor = require('./transactionsMonitor');
-const configurationsModel = require('./models/configurationsModel');
-const to = require('../../utilities/awaitTo');
 
-const secret = require('./config/secret');
-const sha256 = require('crypto-js/sha256');
+const tx = new TransactionsMonitor();
 
-async function main () {
-    const [error, config] = await to(configurationsModel.getAll(sha256(secret).toString()));
+const express = require('express');
+const session = require('express-session');
 
-    if (error) console.log(error);
-    if (config) console.log(config.data);
-}
+const SESSION_AGE = 365 * 24 * 60 * 60 * 1000;
+const app = express();
 
-main();
-// create a config with the Rules Service's address
-// make request to the Rules Service
-// 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  name: 'api-session-key',
+  saveUninitialized: true,
+  cookie: { maxAge: SESSION_AGE },
+}));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+const port = 9000;
 
+require('./config/routes')(app);
+require('./db');
 
+app.listen(port, () => {
+    console.log(`Transactions Service listening at http://localhost:${port}`);
+});

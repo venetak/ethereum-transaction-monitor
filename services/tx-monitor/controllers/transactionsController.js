@@ -2,6 +2,7 @@ const TransactionModel = require('../models/transactionModel');
 const to = require('../../../utilities/awaitTo');
 const statusCodes = require('../../../utilities/statusCodes');
 const { missing_transaction } = require('../../../utilities/errorCodes');
+const events = require('../events');
 
 class TransactionsController {
     getAll (req, res) {
@@ -24,6 +25,15 @@ class TransactionsController {
         TransactionModel.create(req.body)
             .then(res.ok)
             .catch(res.error);
+    }
+
+    updateConfiguration (req, res) {
+        // TODO: import the monitor singleton and set its config directly?
+        // pass whole config or only the id?
+        events.emit('configuration-change', req.body);
+
+        // handle errors? - validate body and return err if invalid?
+        res.ok();
     }
 }
 
