@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "8f57e85c-7979-4730-8ef7-fe77c61e8a73",
+		"name": "Transactions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14028466"
+	},
+	"item": [
+		{
+			"name": "Get All",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "secret",
+						"value": "{{secret}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9000/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Configuration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "secret",
+						"value": "{{secret}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"configuration\": {\r\n        \"_id\": \"64e91d4f35c9ebaaf0059d72\",\r\n        \"rules\": [\r\n            {\r\n                \"name\": \"confirmations\",\r\n                \"range\": [\r\n                    0,\r\n                    20\r\n                ],\r\n                \"_id\": \"64e8f1069f4315160d26b11f\"\r\n            },\r\n            {\r\n                \"name\": \"gasLimit\",\r\n                \"range\": [\r\n                    60,\r\n                    100\r\n                ],\r\n                \"_id\": \"64e8f1069f4315160d26b120\"\r\n            },\r\n            {\r\n                \"name\": \"value\",\r\n                \"range\": [\r\n                    0,\r\n                    20\r\n                ],\r\n                \"_id\": \"64e8f1069f4315160d26b121\"\r\n            }\r\n        ],\r\n        \"__v\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/configuration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"configuration"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
