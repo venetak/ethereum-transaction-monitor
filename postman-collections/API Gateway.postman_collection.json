@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "b83a48ad-7bbb-431a-a25f-afb27757ae56",
+		"name": "API Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14028466"
+	},
+	"item": [
+		{
+			"name": "RC__Get All",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "secret",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9444/configurations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9444",
+					"path": [
+						"configurations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TX__Get All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9444/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9444",
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RC__Get One",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9444/configurations/64e8f097c19baf54c18a3177",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9444",
+					"path": [
+						"configurations",
+						"64e8f097c19baf54c18a3177"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RC__Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rules\": [{\"name\": \"some-name\", \"range\": [30, 40]}]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9444/configurations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9444",
+					"path": [
+						"configurations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RC__Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"rules\": [\r\n            {\r\n                \"name\": \"confirmations\",\r\n                \"range\": [\r\n                    0,\r\n                    20\r\n                ],\r\n                \"_id\": \"64e8f1069f4315160d26b11f\"\r\n            },\r\n            {\r\n                \"name\": \"gasLimit\",\r\n                \"range\": [\r\n                    60,\r\n                    100\r\n                ],\r\n                \"_id\": \"64e8f1069f4315160d26b120\"\r\n            },\r\n            {\r\n                \"name\": \"value\",\r\n                \"range\": [\r\n                    0,\r\n                    20\r\n                ],\r\n                \"_id\": \"64e8f1069f4315160d26b121\"\r\n            }\r\n        ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9444/configurations/64e922db95c78b7a37041787",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9444",
+					"path": [
+						"configurations",
+						"64e922db95c78b7a37041787"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RC__Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9444/configurations/64e922db95c78b7a37041787",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9444",
+					"path": [
+						"configurations",
+						"64e922db95c78b7a37041787"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
