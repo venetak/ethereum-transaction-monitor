@@ -1,6 +1,9 @@
+const constructLocalhostURL = (port) => `http://localhost:${port}`;
+
 const rulesConfigurationServicePort = 3000;
-const rulesConfigurationService = `http://localhost:${rulesConfigurationServicePort}`;
+const transactionsServicePort = 9000;
 
 module.exports = {
-    rulesConfigurationService,
+    rulesConfigurationService: constructLocalhostURL(rulesConfigurationServicePort),
+    transactionsService: constructLocalhostURL(transactionsServicePort),
 };

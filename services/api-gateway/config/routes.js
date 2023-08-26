@@ -11,6 +11,11 @@ const rulesConfigurationServiceRoutes = (app, proxy) => {
     app.delete('/configurations/:id',         auth,          proxy);
 };
 
+const transactionsServiceRoutes = (app, proxy) => {
+    app.get('/transactions',                  auth,          proxy);
+};
+
 module.exports = {
     rulesConfigurationServiceRoutes,
+    transactionsServiceRoutes,
 };
