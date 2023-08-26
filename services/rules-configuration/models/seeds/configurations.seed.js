@@ -7,23 +7,18 @@ const config = new ConfigurationModel({
     rules: [
         {
             type: 'range',
-            name: 'confirmations',
-            value: ['0', '20'],
+            propName: 'gasLimit',
+            values: ['0', '1000000000000'],
         },
         {
             type: 'range',
-            name: 'gasLimit',
-            value: ['0', '20'],
-        },
-        {
-            type: 'range',
-            name: 'value',
-            value: [0, 20],
+            propName: 'value',
+            values: ['1000', '1000000000000'],
         },
         {
             type: 'equality',
-            name: 'from',
-            value: ['0x5FDFA49a292796724B745682f4055f3a8F0142b7', '0x5FDFA49a292796724B745682f4055f3a8F0142b7'],
+            propName: 'from',
+            values: ['0x5FDFA49a292796724B745682f4055f3a8F0142b7', '0x5FDFA49a292796724B745682f4055f3a8F0142b7'],
         }
     ],
 });

@@ -1,6 +1,6 @@
 const TransactionsMonitor = require('./transactionsMonitor');
 
-const tx = new TransactionsMonitor();
+const transactionMonitor = new TransactionsMonitor();
 
 const express = require('express');
 const session = require('express-session');
@@ -23,6 +23,8 @@ const port = 9000;
 
 require('./config/routes')(app);
 require('./db');
+
+transactionMonitor.monitorTransactions();
 
 app.listen(port, () => {
     console.log(`Transactions Service listening at http://localhost:${port}`);

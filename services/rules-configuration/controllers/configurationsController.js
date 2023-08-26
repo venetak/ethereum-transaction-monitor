@@ -7,7 +7,10 @@ const secret = require('../config/secret');
 
 class ConfigurationsController {
     getAll (req, res) {
-        ConfigurationModel.find({})
+        let order = 1;
+        if (req.query?.order === 'desc') order = -1;
+
+        ConfigurationModel.find({}).sort({createdAt: order})
             .then(res.ok)
             .catch(res.error);
     }
