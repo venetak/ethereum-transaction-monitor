@@ -43,7 +43,8 @@ class ConfigurationsController {
         const [errorNotifyingTransactionsService] =
             await to(TransactionsModel.notifyUpdateConfiguration(JSON.stringify(model), secret));
 
-        if (errorNotifyingTransactionsService) return res.error(errorNotifyingTransactionsService);
+        // don't return response.error because the configuration update we successful
+        if (errorNotifyingTransactionsService) console.error(`Failed to notify transaction monitor service, error: ${errorNotifyingTransactionsService}`);
 
         res.ok(model);
     }

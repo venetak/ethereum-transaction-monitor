@@ -13,7 +13,7 @@ const errorLog = (operation, subject, identifier, error) => {
 
 class TransactionsMonitor {
     constructor () {
-        events.on('configuration-change', config => this.rulesConfiguration = config);
+        events.on('configuration-change', data => this.rulesConfiguration = JSON.parse(data.configuration));
         this.onBlock = this.onBlock.bind(this);
 
         // Configuring the connection to an Ethereum node
@@ -43,10 +43,11 @@ class TransactionsMonitor {
         if (errorGettingBlock) return errorLog('get', 'block', blockNumber, errorGettingBlock);
         
         block.transactions.forEach(async (transactionHash) => {
-            const [errorGettingTransaction, transaction] = this.provider.getTransaction(transactionHash);
+            const [errorGettingTransaction, transaction] = await to(this.provider.getTransaction(transactionHash));
             if (errorGettingTransaction) return errorLog('get', 'transaction', transactionHash, errorGettingTransaction);
 
             if (transactionValidator.hasMatch(transaction, this.rulesConfiguration)) {
+                console.log('--------------------------------------------match----save model', new Date().getTime());
                 const [errorSavingTransaction] = await to(new TransactionModel({ ...transaction, configId: this.rulesConfiguration._id }).save());
                 if (errorSavingTransaction) errorLog('save', 'transaction', transactionHash, errorSavingTransaction);
             }

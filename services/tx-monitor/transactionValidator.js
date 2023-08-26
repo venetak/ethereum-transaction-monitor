@@ -6,8 +6,8 @@ const ruleTypes = {
 class TransactionValidator {
     matchByRange (transaction, rule) {
         const [min, max] = rule.values;
-        const propValue = transaction[rule.propName].toNumber();
-        return propValue > parseInt(min) && propValue < parseInt(max);
+        const propValue = transaction[rule.propName];
+        return propValue > propValue.gt(min) && propValue.lt(max);
     }
 
     matchByEqual (transaction, rule) {
