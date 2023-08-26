@@ -3,11 +3,11 @@ const httpProxy = require('express-http-proxy');
 const app = express();
 
 const { rulesConfigurationServiceRoutes } = require('./config/routes');
-const { rulesConfigurationServiceURL } = require('./config/urls');
+const { rulesConfigurationService } = require('./config/urls');
 
 const port = 9444;
 
-const rulesConfigurationServiceProxy = httpProxy(rulesConfigurationServiceURL);
+const rulesConfigurationServiceProxy = httpProxy(rulesConfigurationService);
 rulesConfigurationServiceRoutes(app, rulesConfigurationServiceProxy);
 
 app.listen(port, () => {

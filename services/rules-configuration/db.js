@@ -1,4 +1,4 @@
 const mongoose = require('mongoose');
-const { dbAddress } = require('./config/config');
+const { dbConfig } = require('./config/urls');
 
-module.exports = mongoose.connect(dbAddress);
+module.exports = mongoose.connect(dbConfig);

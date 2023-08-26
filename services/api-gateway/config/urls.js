@@ -1,6 +1,6 @@
 const rulesConfigurationServicePort = 3000;
-const rulesConfigurationServiceURL = `http://localhost:${rulesConfigurationServicePort}`;
+const rulesConfigurationService = `http://localhost:${rulesConfigurationServicePort}`;
 
 module.exports = {
-    rulesConfigurationServiceURL,
+    rulesConfigurationService,
 };
