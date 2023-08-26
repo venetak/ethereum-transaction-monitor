@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "ce9c315e-1bcb-4475-87e5-008517fd0e74",
+		"name": "RulesConfiguration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14028466"
+	},
+	"item": [
+		{
+			"name": "Get All",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "secret",
+						"value": "{{secret}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/configurations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"configurations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All in Descending Order",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "secret",
+						"value": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/configurations?order=desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"configurations"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get One",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "secret",
+						"value": "{{secret}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/configurations/64e8f1069f4315160d26b11e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"configurations",
+						"64e8f1069f4315160d26b11e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "secret",
+						"value": "{{secret}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rules\": [{\"name\": \"some-name\", \"range\": [30, 40]}]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/configurations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"configurations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "secret",
+						"value": "{{secret}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rules\": [\r\n        {\r\n            \"type\": \"range\",\r\n            \"propName\": \"gasLimit\",\r\n            \"values\": [\"0\", \"0\"]\r\n        },\r\n        {\r\n            \"type\": \"range\",\r\n            \"propName\": \"value\",\r\n            \"values\": [\"0\", \"0\"]\r\n        },\r\n        {\r\n            \"type\": \"equality\",\r\n            \"propName\": \"from\",\r\n            \"values\": []\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/configurations/64ea5ff59e603a0545d434e8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"configurations",
+						"64ea5ff59e603a0545d434e8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "secret",
+						"value": "{{secret}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/configurations/64e91d9435c9ebaaf0059d80",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"configurations",
+						"64e91d9435c9ebaaf0059d80"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
