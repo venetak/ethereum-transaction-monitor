@@ -7,9 +7,14 @@ const secret = require('./config/secret');
 const transactionValidator = require('./transactionValidator');
 const TransactionModel = require('./models/transactionModel');
 
+const errorLog = (operation, subject, identifier, error) => {
+    console.error(`Failed to ${operation} ${subject} - ${identifier}, error: ${error}`);
+};
+
 class TransactionsMonitor {
     constructor () {
         events.on('configuration-change', config => this.rulesConfiguration = config);
+        this.onBlock = this.onBlock.bind(this);
 
         // Configuring the connection to an Ethereum node
         const network = process.env.ETHEREUM_NETWORK;
@@ -29,8 +34,23 @@ class TransactionsMonitor {
 
     async getAndSetupConfig () {
         const [errorGettingConfig, config] = await to(configurationsModel.getLast(secret));
-        if (errorGettingConfig) return console.error(`Failed to get configuration - ${errorGettingConfig}`);
+        if (errorGettingConfig) return errorLog('get', 'configuration', '', errorGettingConfig);
         this.rulesConfiguration = config;
+    }
+
+    async onBlock (blockNumber) {
+        const [errorGettingBlock, block] = await to(this.provider.getBlock(blockNumber));
+        if (errorGettingBlock) return errorLog('get', 'block', blockNumber, errorGettingBlock);
+        
+        block.transactions.forEach(async (transactionHash) => {
+            const [errorGettingTransaction, transaction] = this.provider.getTransaction(transactionHash);
+            if (errorGettingTransaction) return errorLog('get', 'transaction', transactionHash, errorGettingTransaction);
+
+            if (transactionValidator.hasMatch(transaction, this.rulesConfiguration)) {
+                const [errorSavingTransaction] = await to(new TransactionModel({ ...transaction, configId: this.rulesConfiguration._id }).save());
+                if (errorSavingTransaction) errorLog('save', 'transaction', transactionHash, errorSavingTransaction);
+            }
+        });
     }
 
     async monitorTransactions () {
@@ -39,18 +59,7 @@ class TransactionsMonitor {
         // Creating a signing account from a private key
         // const signer = new ethers.Wallet(process.env.SIGNER_PRIVATE_KEY, provider);
 
-        this.provider.on('block', (blockNumber) => {
-            this.provider.getBlock(blockNumber).then(block => {
-                this.provider.getTransaction(block.transactions[0]).then(tx => {
-                    if (transactionValidator.hasMatch(tx, this.rulesConfiguration)) {
-                        new TransactionModel(tx).save();
-                        
-                    }
-                    console.log(tx);
-                });
-            });
-            console.log('===================pending', blockNumber);
-        });
+        this.provider.on('block', this.onBlock);
     }
 }
 
