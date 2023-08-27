@@ -74,7 +74,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/configurations/64e8f1069f4315160d26b11e",
+					"raw": "http://localhost:3000/configurations/64ea92db0b2cca17199ba0d1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -82,7 +82,7 @@
 					"port": "3000",
 					"path": [
 						"configurations",
-						"64e8f1069f4315160d26b11e"
+						"64ea92db0b2cca17199ba0d1"
 					]
 				}
 			},
@@ -101,7 +101,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"rules\": [{\"name\": \"some-name\", \"range\": [30, 40]}]\r\n}",
+					"raw": "{\r\n    \"rules\": [{\"propName\": \"some-name\", \"type\": \"range\", \"values\": [30, 40]}]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -135,7 +135,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"rules\": [\r\n        {\r\n            \"type\": \"range\",\r\n            \"propName\": \"gasLimit\",\r\n            \"values\": [\"0\", \"0\"]\r\n        },\r\n        {\r\n            \"type\": \"range\",\r\n            \"propName\": \"value\",\r\n            \"values\": [\"0\", \"0\"]\r\n        },\r\n        {\r\n            \"type\": \"equality\",\r\n            \"propName\": \"from\",\r\n            \"values\": []\r\n        }\r\n    ]\r\n}",
+					"raw": "{\r\n    \"rules\": [\r\n        {\r\n            \"type\": \"range\",\r\n            \"propName\": \"gasLimit\",\r\n            \"values\": [\"0\", \"0\"]\r\n        },\r\n        {\r\n            \"type\": \"range\",\r\n            \"propName\": \"value\",\r\n            \"values\": [\"0\", \"20\"]\r\n        },\r\n        {\r\n            \"type\": \"equality\",\r\n            \"propName\": \"from\",\r\n            \"values\": []\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -143,7 +143,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/configurations/64ea5ff59e603a0545d434e8",
+					"raw": "http://localhost:3000/configurations/64ea92db0b2cca17199ba0d1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -151,7 +151,7 @@
 					"port": "3000",
 					"path": [
 						"configurations",
-						"64ea5ff59e603a0545d434e8"
+						"64ea92db0b2cca17199ba0d1"
 					]
 				}
 			},
@@ -178,7 +178,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/configurations/64e91d9435c9ebaaf0059d80",
+					"raw": "http://localhost:3000/configurations/64eb5c1d7cd6feebc6d33e10",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -186,7 +186,7 @@
 					"port": "3000",
 					"path": [
 						"configurations",
-						"64e91d9435c9ebaaf0059d80"
+						"64eb5c1d7cd6feebc6d33e10"
 					]
 				}
 			},
