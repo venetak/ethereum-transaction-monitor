@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "setup-database": "node services/rules-configuration/models/seeds/configurations.seed.js",
+    "start-tx-monitor": "nodemon services/tx-monitor/index.js",
+    "start-rules-configuration": "nodemon services/rules-configuration/index.js",
+    "start-api-gateway": "nodemon services/api-gateway/index.js",
+    "start": "concurrently \"npm run start-rules-configuration\" \"npm run start-tx-monitor\" \"npm run start-api-gateway\""
   },
   "repository": {
     "type": "git",
@@ -17,6 +21,8 @@
   },
   "homepage": "https://github.com/venetak/ethereum-transaction-monitor#readme",
   "dependencies": {
+    "axios": "^1.4.0",
+    "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.3.1",
     "eslint": "^8.47.0",
@@ -25,5 +31,8 @@
     "express-http-proxy": "^1.6.3",
     "express-session": "^1.17.3",
     "mongoose": "^7.4.5"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1"
   }
 }
