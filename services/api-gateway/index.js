@@ -1,6 +1,9 @@
 const express = require('express');
 const httpProxy = require('express-http-proxy');
 const app = express();
+var cors = require('cors');
+
+app.use(cors());
 
 const port = 9444;
 

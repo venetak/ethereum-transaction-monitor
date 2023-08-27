@@ -24,8 +24,11 @@ class TransactionsMonitor {
         // subscribe to configuration-change event
         events.on('configuration-change', data => {
             const config = data.configuration;
-            if (isJSON(config)) this.rulesConfiguration = JSON.parse(config);
-            this.rulesConfiguration = config;
+            if (isJSON(config)) {
+                this.rulesConfiguration = JSON.parse(config);
+            } else {
+                this.rulesConfiguration = config;
+            }
 
             console.log(`Received configuration-change event, rulesConfiguration changed! - new value: ${JSON.stringify(config)}`);
         });
