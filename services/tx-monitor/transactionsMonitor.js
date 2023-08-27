@@ -3,6 +3,7 @@ const events = require('./events');
 const configurationsModel = require('./models/configurationsModel');
 const to = require('../../utilities/awaitTo');
 const secret = require('./config/secret');
+const { isJSON } = require('../../utilities/json');
 
 const transactionValidator = require('./transactionValidator');
 const TransactionModel = require('./models/transactionModel');
@@ -22,8 +23,11 @@ class TransactionsMonitor {
     constructor () {
         // subscribe to configuration-change event
         events.on('configuration-change', data => {
-            this.rulesConfiguration = JSON.parse(data.configuration);
-            console.log(`Received configuration-change event, rulesConfiguration changed! - new value: ${data.configuration}`);
+            const config = data.configuration;
+            if (isJSON(config)) this.rulesConfiguration = JSON.parse(config);
+            this.rulesConfiguration = config;
+
+            console.log(`Received configuration-change event, rulesConfiguration changed! - new value: ${JSON.stringify(config)}`);
         });
 
         this.onBlock = this.onBlock.bind(this);
@@ -47,11 +51,16 @@ class TransactionsMonitor {
     /**
      * Get the last rules configuration that was
      * saved in the database and set it as a member
+     * @returns {boolean} - true if the setup was successful, false if not
      */
-    async getAndSetupConfig () {
+    async setupConfig () {
         const [errorGettingConfig, config] = await to(configurationsModel.getLast(secret));
-        if (errorGettingConfig) return errorLog('get', 'configuration', '', errorGettingConfig);
+        if (errorGettingConfig) {
+            errorLog('get', 'configuration', '', errorGettingConfig);
+            return false;
+        }
         this.rulesConfiguration = config;
+        return true;
     }
 
     /**
@@ -65,7 +74,8 @@ class TransactionsMonitor {
         
         // loop all transactions and perform a check against the rules of the
         // current configuration
-        block.transactions.forEach(async (transactionHash) => {
+        const txes = [block.transactions[0]];
+        txes.forEach(async (transactionHash) => {
             // get the actual transaction object; block.transactions contains only the hashes!
             const [errorGettingTransaction, transaction] = await to(this.provider.getTransaction(transactionHash));
             if (errorGettingTransaction) return errorLog('get', 'transaction', transactionHash, errorGettingTransaction);
@@ -73,6 +83,7 @@ class TransactionsMonitor {
             if (transactionValidator.hasMatch(transaction, this.rulesConfiguration)) {
                 // save the matched transaction to the database
                 // save the configuration id to enable filtering by config
+                console.log(`Matched TX ------------ ${transactionHash}`);
                 const [errorSavingTransaction] = await to(new TransactionModel({ ...transaction, configId: this.rulesConfiguration._id }).save());
                 if (errorSavingTransaction) errorLog('save', 'transaction', transactionHash, errorSavingTransaction);
             }
@@ -80,7 +91,8 @@ class TransactionsMonitor {
     }
 
     async monitorTransactions () {
-        await this.getAndSetupConfig();
+        const success = await this.setupConfig();
+        if (!success) return;
 
         // Creating a signing account from a private key
         // Use if you want to test with transaction to private address (the wallet).
