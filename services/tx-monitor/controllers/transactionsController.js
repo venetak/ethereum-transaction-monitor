@@ -5,34 +5,37 @@ const { missing_transaction } = require('../../../utilities/errorCodes');
 const events = require('../events');
 
 class TransactionsController {
+    /**
+     * Get all transactions from the database.
+     * @param {Object} req - the request object
+     * @param {Object} res - a Response instance wrapping the response object
+     */
     getAll (req, res) {
         TransactionModel.find({})
             .then(res.ok)
             .catch(res.error);
     }
 
-    async getOne (req, res) {
-        const [error, model] = await to(TransactionModel.findById(req.params.id));
-        if (error) return res.error(error);
-        if (!model) return res.error(missing_transaction, statusCodes.NotFound);
-
-        return res.ok(model);
-    }
-
+    /**
+     * Create a transaction entry in the database.
+     * Relies on the mongoose schema to validate req.body.
+     * @param {Object} req - the request object
+     * @param {Object} res - a Response instance wrapping the response object
+     */
     create (req, res) {
-        // TODO: validate!
-        // Do we need an endpoint for this? - should it be handled internally?
         TransactionModel.create(req.body)
             .then(res.ok)
             .catch(res.error);
     }
 
+    /**
+     * Emit a configuration-change event notifying all subscribers.
+     * This is triggered in a response to an HTTP req from the Rules Configuration service.
+     * @param {Object} req - the request object
+     * @param {Object} res - a Response instance wrapping the response object
+     */
     updateConfiguration (req, res) {
-        // TODO: import the monitor singleton and set its config directly?
-        // pass whole config or only the id?
         events.emit('configuration-change', req.body);
-
-        // handle errors? - validate body and return err if invalid?
         res.ok();
     }
 }
