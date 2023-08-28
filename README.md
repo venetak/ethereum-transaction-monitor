@@ -8,11 +8,10 @@ This is an application that monitors all Ethereum transactions and saves those o
 
 You'll need to setup the following programs/tools in order to run this project:
 
-1. Windows 10
-2. [NodeJS](https://nodejs.org/dist/v16.16.0/) - `v16.16.0`
-3. [MongoDBCompass](https://www.mongodb.com/try/download/compass) - `v1.39.2`
-4. [MongoDb](https://www.mongodb.com/try/download/community-kubernetes-operator) - `v.6.0.4`
-5. [Postman](https://www.postman.com/) - `v10.17.4`
+1. [NodeJS](https://nodejs.org/dist/v16.16.0/) - `v16.16.0`
+2. [MongoDBCompass](https://www.mongodb.com/try/download/compass) - `v1.39.2` - optional
+3. [MongoDb](https://www.mongodb.com/try/download/community-kubernetes-operator) - `v.6.0.4`
+4. [Postman](https://www.postman.com/) - `v10.17.4` - optional
 
 ## Setup
 
@@ -59,13 +58,14 @@ This will start a development server that will host a [React](https://react.dev/
 
 ### Import the Postman Collections
 
-For easier testing use Postman - an HTTP client that allow you to make requests to the API endpoints. The exported collections are in the `postman-collections` folder.
+For easier testing use Postman - an HTTP client that allow you to make requests to the API endpoints. The exported collections are in the `postman-collections` folder. **Make sure to set the {{secret}} variable!** It is not exported with the collection.
 
 ![PostmanCollections](/docs/images/PostmanImportColl.PNG)
 
 ### Start the Services
 
-Run
+In the root of the project run:
+
 ```
 npm run start
 ```
