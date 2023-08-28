@@ -7,8 +7,7 @@
     "setup-database": "node services/rules-configuration/models/seeds/configurations.seed.js",
     "start-tx-monitor": "nodemon services/tx-monitor/index.js",
     "start-rules-configuration": "nodemon services/rules-configuration/index.js",
-    "start-api-gateway": "nodemon services/api-gateway/index.js",
-    "start": "concurrently \"npm run start-rules-configuration\" \"npm run start-tx-monitor\" \"npm run start-api-gateway\""
+    "start-api-gateway": "nodemon services/api-gateway/index.js"
   },
   "repository": {
     "type": "git",
@@ -31,8 +30,5 @@
     "express-http-proxy": "^1.6.3",
     "express-session": "^1.17.3",
     "mongoose": "^7.4.5"
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.1"
   }
 }

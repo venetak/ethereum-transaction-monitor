@@ -64,10 +64,18 @@ For easier testing use Postman - an HTTP client that allow you to make requests 
 
 ### Start the Services
 
-In the root of the project run:
+In the root of the project run **in this order**:
 
 ```
-npm run start
+npm run start-rules-configuration
+```
+
+```
+npm run start-api-gateway
+```
+
+```
+start-tx-monitor
 ```
 
 You'll begin to see logs that look like this:
